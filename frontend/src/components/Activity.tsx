@@ -8,9 +8,9 @@ import { AcInterface } from "../models/IActivity";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 function Activity() {
-    const [bh, setBh] = React.useState<AcInterface[]>([]);
+    const [activity, setAc] = React.useState<AcInterface[]>([]);
 
-    const getBh = async () => {
+    const getAc = async () => {
         const apiUrl = "http://localhost:8080/Activity";
         const requestOptions = {
             method: "GET",
@@ -22,7 +22,7 @@ function Activity() {
             .then((res) => {
                 if (res.data) {
                     console.log(res.data)
-                    setBh(res.data);
+                    setAc(res.data);
                 }
                 else {console.log("NO DATA")}
             });
@@ -41,7 +41,7 @@ function Activity() {
     ];
 
     useEffect(() => {
-        getBh();
+        getAc();
     }, []);
 
     return (
@@ -76,7 +76,7 @@ function Activity() {
                 </Box>
                 <div style={{ height: 400, width: '100%', marginTop: '20px' }}>
                     <DataGrid
-                        rows={bh}
+                        rows={activity}
                         columns={columns}
                         pageSize={5}
                         rowsPerPageOptions={[5]}

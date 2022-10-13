@@ -26,7 +26,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 function AcCreate() {
     const [date, setDate] = React.useState<Date | null>(null);
-    const [bh, setBh] = React.useState<Partial<AcInterface>>({});
+    const [Activity, setAc] = React.useState<Partial<AcInterface>>({});
     const [success, setSuccess] = React.useState(false);
     const [error, setError] = React.useState(false);
 
@@ -46,18 +46,19 @@ function AcCreate() {
     ) => {
         const id = event.target.id as keyof typeof AcCreate;
         const { value } = event.target;
-        setBh({ ...bh, [id]: value });
+        setAc({ ...Activity, [id]: value });
     };
 
     function submit() {
         let data = {
-            Point: typeof bh.Point === "string" ? parseInt(bh.Point) : 0,
-            Detail: bh.Detail ?? "",
-            Date_Rec: date,
-            AdminID: bh.AdminID ?? "",
-            PointTypeID: bh.PointTypeID ?? "",
-            BehaviorTypeID: bh.BehaviorTypeID ?? "",
-            StudentID: bh.StudentID ?? "",
+            Acname: Activity.Acname ?? "",
+            Date_s: date,
+            Date_e: date,
+            Time_s: date,
+            Time_e: date,
+            LocationID: Activity.LocationID ?? "",
+            TeacherID: Activity.TeacherID ?? "",
+            AdminID: Activity.AdminID ?? "",
         };
 
         const apiUrl = "http://localhost:8080/Activity";
@@ -118,36 +119,18 @@ function AcCreate() {
                     
                     <Grid item xs={6}>
                         <FormControl fullWidth variant="outlined">
-                            <p>Detail</p>
+                            <p>Activity Name</p>
                             <TextField
-                                id="LastName"
+                                id="Acname"
                                 variant="outlined"
                                 type="string"
                                 size="medium"
-                                value={bh.Detail}
+                                value={Activity.Acname}
                                 onChange={handleInputChange}
                             />
                         </FormControl>
                     </Grid>
                     
-                    <Grid item xs={6}>
-                        <FormControl fullWidth variant="outlined">
-                            <p>Point</p>
-                            <TextField
-                                id="Point"
-                                variant="outlined"
-                                type="number"
-                                size="medium"
-                                InputProps={{ inputProps: { min: 1 } }}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                value={bh.Point || ""}
-                                onChange={handleInputChange}
-                            />
-                        </FormControl>
-                    </Grid>
-
                     <Grid item xs={6}>
                         <FormControl fullWidth variant="outlined">
                             <p>AdminID</p>
@@ -156,7 +139,7 @@ function AcCreate() {
                                 variant="outlined"
                                 type="string"
                                 size="medium"
-                                value={bh.AdminID}
+                                value={Activity.AdminID}
                                 onChange={handleInputChange}
                             />
                         </FormControl>
@@ -164,13 +147,13 @@ function AcCreate() {
 
                     <Grid item xs={6}>
                         <FormControl fullWidth variant="outlined">
-                            <p>PointTypeID</p>
+                            <p>TeacherID</p>
                             <TextField
                                 id="LastName"
                                 variant="outlined"
                                 type="string"
                                 size="medium"
-                                value={bh.PointTypeID}
+                                value={Activity.TeacherID}
                                 onChange={handleInputChange}
                             />
                         </FormControl>
@@ -178,27 +161,13 @@ function AcCreate() {
 
                     <Grid item xs={6}>
                         <FormControl fullWidth variant="outlined">
-                            <p>BehaviorTypeID</p>
+                            <p>LocationID</p>
                             <TextField
                                 id="LastName"
                                 variant="outlined"
                                 type="string"
                                 size="medium"
-                                value={bh.BehaviorTypeID}
-                                onChange={handleInputChange}
-                            />
-                        </FormControl>
-                    </Grid>
-
-                    <Grid item xs={6}>
-                        <FormControl fullWidth variant="outlined">
-                            <p>StudentID</p>
-                            <TextField
-                                id="LastName"
-                                variant="outlined"
-                                type="string"
-                                size="medium"
-                                value={bh.StudentID}
+                                value={Activity.LocationID}
                                 onChange={handleInputChange}
                             />
                         </FormControl>
